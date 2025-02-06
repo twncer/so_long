@@ -2,6 +2,7 @@
     "files.associations": {
         "libsolong.h": "c",
         "so_long.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "stdlib.h": "c"
     }
 }

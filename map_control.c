@@ -6,7 +6,7 @@
 /*   By: btuncer <btuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 22:59:23 by btuncer           #+#    #+#             */
-/*   Updated: 2025/02/05 01:53:22 by btuncer          ###   ########.fr       */
+/*   Updated: 2025/02/06 01:05:24 by btuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,8 @@ static void set_pos(struct Map *map)
             {
                 map->start_pos_y = y;
                 map->start_pos_x = x;
+                map->current_pos_y = y;
+                map->current_pos_x = x;
                 return ;
             }
             x++;
