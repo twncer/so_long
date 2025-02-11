@@ -2,8 +2,6 @@
 
 bool rec_walls(int way, unsigned int x, unsigned int y, char **map)
 {
-    int walls[5];
-
     if (way == 0) 
         return(map[y - 1][x] == '1');
     if (way == 1)
@@ -15,7 +13,7 @@ bool rec_walls(int way, unsigned int x, unsigned int y, char **map)
     return (false);
 }
 
-char move_top(struct Map *map)
+char move_top(struct s_map *map)
 {
     char swap;
     
@@ -30,7 +28,7 @@ char move_top(struct Map *map)
     return ('Q');
 }
 
-char move_right(struct Map *map)
+char move_right(struct s_map *map)
 {
     char swap;
     
@@ -45,7 +43,7 @@ char move_right(struct Map *map)
     return ('Q');
 }
 
-char move_bottom(struct Map *map)
+char move_bottom(struct s_map *map)
 {
     char swap;
     
@@ -60,7 +58,7 @@ char move_bottom(struct Map *map)
     return ('Q');
 }
 
-char move_left(struct Map *map)
+char move_left(struct s_map *map)
 {
     char swap;
     

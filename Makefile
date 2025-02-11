@@ -1,22 +1,29 @@
-NAME = sl.a
+NAME = so_long
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
+MLX_DIR = ./vendor/minilibx-linux
+MLX_FLAGS = -lXext -lX11
+LIBMLX_DIR = ./vendor/minilibx-linux/libmlx_Linux.a
+#-lmlx -lXext -lX11 -lm -lz -lpthread
 
-SOURCES = main.c \
-			map_control.c \
-			libsl/libslpg1.c \
-			libsl/sl_split.c
+SOURCES = \
+		window.c \
+		./vendor/libsl/libsl_page_1.c \
+		./vendor/libsl/sl_split.c \
+		movement.c \
+		./map/map_control.c \
+		./map/map_simulate.c \
 
 OBJ = $(SOURCES:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	ar -rcs $(NAME) $(OBJ)
+	$(CC) $(CFLAGS) $(OBJ) $(LIBMLX_DIR) -L$(MLX_DIR) $(MLX_FLAGS) -o $(NAME)
 
 clean:
 	rm -f $(OBJ) 
-a
+
 fclean: clean
 	rm -f $(NAME)
 

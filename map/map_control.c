@@ -6,13 +6,13 @@
 /*   By: btuncer <btuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 22:59:23 by btuncer           #+#    #+#             */
-/*   Updated: 2025/02/06 01:05:24 by btuncer          ###   ########.fr       */
+/*   Updated: 2025/02/11 19:30:35 by btuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
-#include "so_long.h"
-#include "./libsl/libsl.h"
+#include "./../so_long.h"
+#include "./../vendor/libsl/libsl.h"
 #include <stdlib.h>
 #include <stdio.h>
 #define BUFFER_SIZE 100
@@ -58,7 +58,7 @@ static char **set_map(char *path)
     return (res);
 }
 
-static bool check_is_rect(struct Map *map)
+static bool check_is_rect(struct s_map *map)
 {
     unsigned int first_line_len;
     unsigned int i;
@@ -76,7 +76,7 @@ static bool check_is_rect(struct Map *map)
     return (true);
 }
 
-static bool check_is_walls_valid(struct Map *map)
+static bool check_is_walls_valid(struct s_map *map)
 {
     unsigned int i;
 
@@ -97,7 +97,7 @@ static bool check_is_walls_valid(struct Map *map)
     return (true);
 }
 
-static void set_pos(struct Map *map)
+static void set_pos(struct s_map *map)
 {
     unsigned int x;
     unsigned int y;
@@ -123,17 +123,7 @@ static void set_pos(struct Map *map)
     }
 }
 
-static bool check_is_solveable(struct Map *map)
-{
-    int dir;
-    bool front;
-    bool right;
-    bool behind;
-    bool left;
-    return (true);
-}
-
-bool map_is_valid(char *path, struct Map *map)
+bool map_is_valid(char *path, struct s_map *map)
 {
     map->map = set_map(path);
     map->is_rect = check_is_rect(map);

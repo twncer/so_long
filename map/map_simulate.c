@@ -6,15 +6,15 @@
 /*   By: btuncer <btuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 19:32:35 by btuncer           #+#    #+#             */
-/*   Updated: 2025/02/06 04:18:38 by btuncer          ###   ########.fr       */
+/*   Updated: 2025/02/11 19:30:43 by btuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "./../so_long.h"
 #include <stdio.h>
 #include <unistd.h>
 
-void draw_map(struct Map *map)
+void draw_map(struct s_map *map)
 {
     int i;
     i = 0;
@@ -28,17 +28,5 @@ void draw_map(struct Map *map)
     printf("\nis_walls_valid = %d", map->is_walls_valid);
     printf("\nx position: %u", map->current_pos_x);
     printf("\ny position: %u\n", map->current_pos_y);
-}
-
-bool simulate_map(struct Map *map)
-{
-    if (1)
-        return (true);
-    unsigned int moves;
-    char next_char;
-    unsigned int x;
-    unsigned int y;
-    printf("Total moves: %u", moves);
-    return (next_char == 'E');
 }
 
