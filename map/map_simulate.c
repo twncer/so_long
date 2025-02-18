@@ -6,7 +6,7 @@
 /*   By: btuncer <btuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 19:32:35 by btuncer           #+#    #+#             */
-/*   Updated: 2025/02/11 19:30:43 by btuncer          ###   ########.fr       */
+/*   Updated: 2025/02/12 15:24:21 by btuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void draw_map(struct s_map *map)
     }
     printf("\nis_rect = %d", map->is_rect);
     printf("\nis_walls_valid = %d", map->is_walls_valid);
-    printf("\nx position: %u", map->current_pos_x);
-    printf("\ny position: %u\n", map->current_pos_y);
+    printf("\nx position: %u", map->current_pos.x);
+    printf("\ny position: %u\n", map->current_pos.y);
 }
-

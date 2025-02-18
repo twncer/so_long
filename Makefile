@@ -1,18 +1,21 @@
 NAME = so_long
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
-MLX_DIR = ./vendor/minilibx-linux
+#CFLAGS = -Wall -Wextra -Werror
+MLX_DIR = vendor/minilibx-linux
 MLX_FLAGS = -lXext -lX11
-LIBMLX_DIR = ./vendor/minilibx-linux/libmlx_Linux.a
+LIBMLX_DIR = vendor/minilibx-linux/libmlx_Linux.a
 #-lmlx -lXext -lX11 -lm -lz -lpthread
 
 SOURCES = \
 		window.c \
-		./vendor/libsl/libsl_page_1.c \
-		./vendor/libsl/sl_split.c \
-		movement.c \
-		./map/map_control.c \
-		./map/map_simulate.c \
+		vendor/libsl/libsl_page_1.c \
+		vendor/libsl/sl_split.c \
+		movement/movement.c \
+		movement/listen_keys.c \
+		map/map_control.c \
+		map/map_simulate.c \
+		render/render.c \
+		player/player.c \
 
 OBJ = $(SOURCES:.c=.o)
 

@@ -1,16 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sl_map.h                                           :+:      :+:    :+:   */
+/*   player.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: btuncer <btuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/12 15:41:23 by btuncer           #+#    #+#             */
-/*   Updated: 2025/02/12 15:41:28 by btuncer          ###   ########.fr       */
+/*   Created: 2025/02/14 23:18:53 by btuncer           #+#    #+#             */
+/*   Updated: 2025/02/14 23:18:54 by btuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAP_H
-# define MAP_H
-bool map_is_valid(char *path, struct s_map *map);
-#endif
+struct s_player init_player(struct s_map *map, void *mlx);

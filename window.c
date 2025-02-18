@@ -1,79 +1,127 @@
-// cc window.c -Lminilibx-linux minilibx-linux/libmlx.a -lX11 -lXext -o a 
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   window.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: btuncer <btuncer@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/12 18:56:13 by btuncer           #+#    #+#             */
+/*   Updated: 2025/02/19 00:50:56 by btuncer          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "./vendor/minilibx-linux/mlx.h"
-#include "./vendor/libsl/libsl.h"
 #include "so_long.h"
 #include "./map/sl_map.h"
+#include "./render/render.h"
+#include "./player/player.h"
+#include "./movement/movement.h"
 #include <stdio.h>
-#define PLATFORM_W 60;
-#define WALL_H 99;
+
+bool is_moving(bool set, bool to)
+{
+    static bool moving = false;
+    if (set)
+        moving = to;
+    return (moving);
+}
+
+int onpress_event(int key, struct s_eventpkg *evpkg)
+{
+    key_pressed(key, &(evpkg->key_list));
+}
+
+int onrelease_event(int key, struct s_eventpkg *evpkg)
+{
+    int q;
+    
+    if (evpkg->player.image != mlx_xpm_file_to_image(evpkg->mlx.mlx, "./textures/frisk/idle2.xpm", &q, &q))
+        evpkg->player.image = mlx_xpm_file_to_image(evpkg->mlx.mlx, "./textures/frisk/idle2.xpm", &q, &q);
+    key_released(key, &(evpkg->key_list));
+}
+
+int loop_event(struct s_eventpkg *evpkg)
+{
+    int q;
+    
+    if (evpkg->key_list.key_a || evpkg->key_list.key_d 
+    || evpkg->key_list.key_w || evpkg->key_list.key_s)
+        render(evpkg);
+        
+    if (evpkg->key_list.key_d && evpkg->map.map[evpkg->player.position.y / 60][evpkg->player.position.x / 60 + 1] != '1')
+    {
+        evpkg->player.image = mlx_xpm_file_to_image(evpkg->mlx.mlx, "./textures/frisk/walk_right/frame1.xpm", &q, &q);
+        evpkg->player.position.x += PLAYER_PPM;
+    }
+
+    if (evpkg->key_list.key_a && evpkg->map.map[evpkg->player.position.y / 60][(evpkg->player.position.x - 1) / 60] != '1')
+        evpkg->player.position.x -= PLAYER_PPM;
+
+    if (evpkg->key_list.key_w && !(evpkg->map.map[(evpkg->player.position.y - 1) / 60][evpkg->player.position.x / 60] == '1' ||
+        evpkg->map.map[(evpkg->player.position.y - 1) / 60][(evpkg->player.position.x + 59) / 60] == '1'))
+        evpkg->player.position.y -= PLAYER_PPM;
+
+    if (evpkg->key_list.key_s && !(evpkg->map.map[(evpkg->player.position.y + 1) / 60][evpkg->player.position.x / 60] == '1' ||
+        evpkg->map.map[(evpkg->player.position.y + 1) / 60][(evpkg->player.position.x + 59) / 60] == '1'))
+        evpkg->player.position.y += PLAYER_PPM;
+        
+    evpkg->map.current_pos.x = evpkg->player.position.x / 60;
+    evpkg->map.current_pos.y = evpkg->player.position.y / 60;
+    
+    printf("      W(%i)\nA(%i)  S(%i)  D(%i)\n\n", evpkg->key_list.key_w, evpkg->key_list.key_a, 
+                                        evpkg->key_list.key_s, evpkg->key_list.key_d);
+    printf("\nLocation: (%i:%i)[%i:%i]\n\n", evpkg->player.position.x, evpkg->player.position.y, 
+                                            evpkg->player.position.x / 60, evpkg->player.position.y / 60);
+    printf("\n\n[%c][%c][%c]\n[%c][P][%c]\n[%c][%c][%c]\n\n",
+        evpkg->map.map[evpkg->player.position.y / 60 - 1][evpkg->player.position.x / 60 - 1],
+        evpkg->map.map[evpkg->player.position.y / 60 - 1][evpkg->player.position.x / 60],
+        evpkg->map.map[evpkg->player.position.y / 60 - 1][evpkg->player.position.x / 60 + 1],
+        evpkg->map.map[evpkg->player.position.y / 60][evpkg->player.position.x / 60 - 1],
+        /*evpkg->map.map[evpkg->player.position.y / 60][evpkg->player.position.x / 60],*/
+        evpkg->map.map[evpkg->player.position.y / 60][evpkg->player.position.x / 60 + 1],
+        evpkg->map.map[evpkg->player.position.y / 60 + 1][evpkg->player.position.x / 60 - 1],
+        evpkg->map.map[evpkg->player.position.y / 60 + 1][evpkg->player.position.x / 60],
+        evpkg->map.map[evpkg->player.position.y / 60 + 1][evpkg->player.position.x / 60 + 1]
+    );
+}
+// mlx_destroy_window(eventpkg->mlx.mlx, eventpkg->mlx.win);
 
 int main()
 {
-    void *mlx;
-    void *win;
-    void *wall;
-    void *platform;
-    void *collectable;
-    void *frisk;
-    int w, h;
-    int x, y, x0, y0;
-
-    x = 0; y = 0;
-    x0 = 0; y0 = 0;
-
     char *path = "./maps/flowerbed.ber";
-    struct s_map map;
-    if (!map_is_valid(path, &map))
-        return (printf("Map is not valid."), 1);
-    mlx = mlx_init();
-    if (!mlx)
-        return (printf("MLX init failed.\n"), 1);
-    win = mlx_new_window(mlx, 9000, 9000, "so_long.xd");
-    if (!win)
-        return(printf("Windows creation fault.\n"), 1);
-    wall = mlx_xpm_file_to_image(mlx, "./textures/wall.xpm", &w, &h);
-    platform = mlx_xpm_file_to_image(mlx, "./textures/platform3.xpm", &w, &h);
-    collectable = mlx_xpm_file_to_image(mlx, "./textures/coll.xpm", &w, &h);
-    frisk = mlx_xpm_file_to_image(mlx, "./textures/frisk/idle2.xpm", &w, &h);
-
-    if (!wall || !platform || !collectable)
-        return (printf("Image fetching failed.\n"), 1);
-    while ((map.map)[y0])
-    {
-        while ((map.map)[y0][x0])
-        {
-            if ((map.map)[y0][x0] == '1')
-                mlx_put_image_to_window(mlx, win, wall, x, y);
-            else
-                mlx_put_image_to_window(mlx, win, platform, x, y + 40);
-            x = x + 60;
-            x0 = x0 + 1;
-        }
-        y = y + 60;
-        x = 0;
-        x0 = 0;
-        y0 = y0 + 1;
-    }
-    x = 0; y = 0;
-    x0 = 0; y0 = 0;
     
-    while ((map.map)[y0])
-    {
-        while ((map.map)[y0][x0])
-        {
-            if ((map.map)[y0][x0] == 'C')
-                mlx_put_image_to_window(mlx, win, collectable, x + 17, y + 65);
-            if ((map.map)[y0][x0] == 'P')
-                mlx_put_image_to_window(mlx, win, frisk, x, y + 15);
-            x = x + 60;
-            x0 = x0 + 1;
-        }
-        y = y + 60;
-        x = 0;
-        x0 = 0;
-        y0 = y0 + 1;
-    }
-    mlx_loop(mlx);
+    struct s_mlx mlx;
+    struct s_map map;
+    struct s_player player;
+    struct s_eventpkg eventpkg;
+    struct s_key_listener key_list;
+    
+    int q;
+    
+    if (!map_is_valid(path, &map)) // also inits the map
+        return (printf("Map is not valid."), 1);
+    
+    mlx.mlx = mlx_init();
+    if (!mlx.mlx)
+        return (printf("MLX init failed.\n"), 1);
+    
+    mlx.win = mlx_new_window(mlx.mlx, WIN_W, WIN_H, "so_long.xd");
+    if (!mlx.win)
+        return(printf("Window creation fault.\n"), 1);
+        
+    player = init_player(&map, mlx.mlx); // doesnt sets a player image, so should set it before rendering
+    player.image = mlx_xpm_file_to_image(mlx.mlx, "./textures/frisk/idle2.xpm", &q, &q);
+    
+    eventpkg.mlx = mlx;
+    eventpkg.player = player;
+    eventpkg.map = map;
+    eventpkg.key_list = key_list;
+    
+    printf("x %u, y %u\n", player.position.x / 60, player.position.y / 60);
+    
+    mlx_hook(mlx.win, 2, 1L<<0, onpress_event, &eventpkg); // onpress event
+    mlx_hook(mlx.win, 3, 1L<<1, onrelease_event, &eventpkg); // onrelease event
+    mlx_loop_hook(mlx.mlx, loop_event, &eventpkg);
+    mlx_loop(mlx.mlx);
 }
-// mlx_put_image_to_window(mlx, win, img2, 120, 100);
+// mlx_string_put(mlx, win, 0, 10, 0xFFFFFF, "currently on: ground");

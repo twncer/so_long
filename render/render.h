@@ -1,21 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   render.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: btuncer <btuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/04 22:14:49 by btuncer           #+#    #+#             */
-/*   Updated: 2025/02/06 04:58:22 by btuncer          ###   ########.fr       */
+/*   Created: 2025/02/12 15:11:07 by btuncer           #+#    #+#             */
+/*   Updated: 2025/02/17 20:24:38 by btuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
+#ifndef RENDER_H
+# define RENDER_H
 
-int main()
-{
-    return 0;
-}
+void render(struct s_eventpkg *evpkg);
+
+#endif

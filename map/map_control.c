@@ -6,7 +6,7 @@
 /*   By: btuncer <btuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 22:59:23 by btuncer           #+#    #+#             */
-/*   Updated: 2025/02/11 19:30:35 by btuncer          ###   ########.fr       */
+/*   Updated: 2025/02/13 13:20:16 by btuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,10 +110,10 @@ static void set_pos(struct s_map *map)
         {
             if ((map->map)[y][x] == 'P')
             {
-                map->start_pos_y = y;
-                map->start_pos_x = x;
-                map->current_pos_y = y;
-                map->current_pos_x = x;
+                map->start_pos.y = y;
+                map->start_pos.x = x;
+                map->current_pos.y = y;
+                map->current_pos.x = x;
                 return ;
             }
             x++;
