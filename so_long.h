@@ -6,22 +6,25 @@
 /*   By: btuncer <btuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 20:57:43 by btuncer           #+#    #+#             */
-/*   Updated: 2025/02/18 01:29:24 by btuncer          ###   ########.fr       */
+/*   Updated: 2025/02/19 07:43:40 by btuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdbool.h>
-#define WIN_W 2048
-#define WIN_H 720
-#define GROUND_W 60
-#define WALL_H 99
-#define PLAYER_W 60
-#define PLAYER_H 86
-#define PLAYER_PPM 1 // pixel per move
-#define KEY_D 100
-#define KEY_A 97
-#define KEY_W 119
-#define KEY_S 115
+#ifndef SO_LONG_H
+# define SO_LONG_H
+
+# include <stdbool.h>
+# define WIN_W 2048
+# define WIN_H 720
+# define GROUND_W 60
+# define WALL_H 99
+# define PLAYER_W 60
+# define PLAYER_H 86
+# define PLAYER_PPM 1 // pixel per move
+# define KEY_D 100
+# define KEY_A 97
+# define KEY_W 119
+# define KEY_S 115
 
 struct						s_position
 {
@@ -31,20 +34,28 @@ struct						s_position
 
 struct						s_map
 {
-	bool					is_rect;
-	bool					is_walls_valid;
-	bool					is_solveable;
+	bool is_rect;        // remove later
+	bool is_walls_valid; // remove later
+	bool is_solveable;   // replace it with is_valid
 	char					**map;
 	unsigned int			height;
 	unsigned int			width;
-	struct s_position		start_pos;
+	struct s_position start_pos; // remove later
 	struct s_position		current_pos;
+	struct s_position		exit_pos;
+	void					*exit_image;
+	void					*enemy_image;
 };
 
 struct						s_images
 {
 	void					*wall;
 	void					*ground;
+	void					*star1;
+	void					*star2;
+	void					*star3;
+	void					*flowey1;
+	void					*flowey2;
 };
 
 struct						s_player
@@ -52,6 +63,16 @@ struct						s_player
 	struct s_position position; // ayak pozisyonu
 	void					*image;
 	unsigned int			moves_px;
+	// s_player_images top;
+	// s_player_images right;
+	// s_player_images bottom;
+	// s_player_images left;
+};
+
+struct						s_player_images
+{
+	void					*image1;
+	void					*image2;
 };
 
 struct						s_mlx
@@ -74,4 +95,7 @@ struct						s_eventpkg
 	struct s_player			player;
 	struct s_map			map;
 	struct s_key_listener	key_list;
+	struct s_images			images;
 };
+
+#endif

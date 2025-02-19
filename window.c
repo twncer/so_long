@@ -6,7 +6,7 @@
 /*   By: btuncer <btuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 18:56:13 by btuncer           #+#    #+#             */
-/*   Updated: 2025/02/19 00:50:56 by btuncer          ###   ########.fr       */
+/*   Updated: 2025/02/19 08:00:10 by btuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "./player/player.h"
 #include "./movement/movement.h"
 #include <stdio.h>
+#include <sys/time.h>
 
 bool is_moving(bool set, bool to)
 {
@@ -24,6 +25,13 @@ bool is_moving(bool set, bool to)
     if (set)
         moving = to;
     return (moving);
+}
+
+long long current_time_ms()
+{
+    struct timeval tval;
+    gettimeofday(&tval, NULL);
+    return (long long)(tval.tv_sec) * 1000 + (tval.tv_usec) / 1000;
 }
 
 int onpress_event(int key, struct s_eventpkg *evpkg)
@@ -43,17 +51,23 @@ int onrelease_event(int key, struct s_eventpkg *evpkg)
 int loop_event(struct s_eventpkg *evpkg)
 {
     int q;
+    static int star_animation = 1;
+    static int flowey_animation = 1;
+    static long long star_last_time = 0;
+    static long long flowey_last_time = 0;
+    long long time_h;
     
+    /* movement */
     if (evpkg->key_list.key_a || evpkg->key_list.key_d 
-    || evpkg->key_list.key_w || evpkg->key_list.key_s)
+    || evpkg->key_list.key_w || evpkg->key_list.key_s) // render if just player moves
+    {
         render(evpkg);
-        
+    }
     if (evpkg->key_list.key_d && evpkg->map.map[evpkg->player.position.y / 60][evpkg->player.position.x / 60 + 1] != '1')
     {
         evpkg->player.image = mlx_xpm_file_to_image(evpkg->mlx.mlx, "./textures/frisk/walk_right/frame1.xpm", &q, &q);
         evpkg->player.position.x += PLAYER_PPM;
     }
-
     if (evpkg->key_list.key_a && evpkg->map.map[evpkg->player.position.y / 60][(evpkg->player.position.x - 1) / 60] != '1')
         evpkg->player.position.x -= PLAYER_PPM;
 
@@ -67,37 +81,60 @@ int loop_event(struct s_eventpkg *evpkg)
         
     evpkg->map.current_pos.x = evpkg->player.position.x / 60;
     evpkg->map.current_pos.y = evpkg->player.position.y / 60;
-    
-    printf("      W(%i)\nA(%i)  S(%i)  D(%i)\n\n", evpkg->key_list.key_w, evpkg->key_list.key_a, 
-                                        evpkg->key_list.key_s, evpkg->key_list.key_d);
-    printf("\nLocation: (%i:%i)[%i:%i]\n\n", evpkg->player.position.x, evpkg->player.position.y, 
-                                            evpkg->player.position.x / 60, evpkg->player.position.y / 60);
-    printf("\n\n[%c][%c][%c]\n[%c][P][%c]\n[%c][%c][%c]\n\n",
-        evpkg->map.map[evpkg->player.position.y / 60 - 1][evpkg->player.position.x / 60 - 1],
-        evpkg->map.map[evpkg->player.position.y / 60 - 1][evpkg->player.position.x / 60],
-        evpkg->map.map[evpkg->player.position.y / 60 - 1][evpkg->player.position.x / 60 + 1],
-        evpkg->map.map[evpkg->player.position.y / 60][evpkg->player.position.x / 60 - 1],
-        /*evpkg->map.map[evpkg->player.position.y / 60][evpkg->player.position.x / 60],*/
-        evpkg->map.map[evpkg->player.position.y / 60][evpkg->player.position.x / 60 + 1],
-        evpkg->map.map[evpkg->player.position.y / 60 + 1][evpkg->player.position.x / 60 - 1],
-        evpkg->map.map[evpkg->player.position.y / 60 + 1][evpkg->player.position.x / 60],
-        evpkg->map.map[evpkg->player.position.y / 60 + 1][evpkg->player.position.x / 60 + 1]
-    );
+
+    /* star animation */
+    time_h = current_time_ms();
+    if (time_h % 400 == 0) // every 400ms
+    {
+        if (!(star_last_time + 100 > time_h))
+        {
+            if (star_animation == 1)
+            {
+                evpkg->map.exit_image = mlx_xpm_file_to_image(evpkg->mlx.mlx, "./textures/star/star2.xpm", &q, &q);
+                star_animation = 2;
+            } else if (star_animation == 2) {
+                evpkg->map.exit_image = mlx_xpm_file_to_image(evpkg->mlx.mlx, "./textures/star/star3.xpm", &q, &q);
+                star_animation = 3;   
+            } else {
+                evpkg->map.exit_image = mlx_xpm_file_to_image(evpkg->mlx.mlx, "./textures/star/star1.xpm", &q, &q);
+                star_animation = 1;  
+            }
+            star_last_time = time_h;
+            render_exit(evpkg); // render only exit
+        }
+    }
+    if (time_h % 200 == 0)
+    {
+        if (!(flowey_last_time + 100 > time_h))
+        {
+            if (flowey_animation == 1)
+            {
+                evpkg->map.enemy_image = mlx_xpm_file_to_image(evpkg->mlx.mlx, "./textures/flowey/flowey2.xpm", &q, &q);
+                flowey_animation = 2;
+            } else if (flowey_animation == 2)
+            {
+                evpkg->map.enemy_image = mlx_xpm_file_to_image(evpkg->mlx.mlx, "./textures/flowey/flowey1.xpm", &q, &q);
+                flowey_animation = 1;
+            }
+            flowey_last_time = time_h;
+            render_enemy(evpkg);
+        }
+    }
+    printf("(%i:%i)\n", evpkg->map.current_pos.x, evpkg->map.current_pos.y);
 }
 // mlx_destroy_window(eventpkg->mlx.mlx, eventpkg->mlx.win);
 
 int main()
 {
-    char *path = "./maps/flowerbed.ber";
+    char *path = "./maps/flowerbed_short.ber";
     
     struct s_mlx mlx;
     struct s_map map;
     struct s_player player;
     struct s_eventpkg eventpkg;
     struct s_key_listener key_list;
-    
-    int q;
-    
+    struct s_images images;
+        
     if (!map_is_valid(path, &map)) // also inits the map
         return (printf("Map is not valid."), 1);
     
@@ -109,19 +146,28 @@ int main()
     if (!mlx.win)
         return(printf("Window creation fault.\n"), 1);
         
-    player = init_player(&map, mlx.mlx); // doesnt sets a player image, so should set it before rendering
-    player.image = mlx_xpm_file_to_image(mlx.mlx, "./textures/frisk/idle2.xpm", &q, &q);
+    player = init_player(&map, mlx.mlx);
+    images = init_images(mlx.mlx);
     
     eventpkg.mlx = mlx;
     eventpkg.player = player;
     eventpkg.map = map;
     eventpkg.key_list = key_list;
-    
-    printf("x %u, y %u\n", player.position.x / 60, player.position.y / 60);
+    eventpkg.images = images;
     
     mlx_hook(mlx.win, 2, 1L<<0, onpress_event, &eventpkg); // onpress event
     mlx_hook(mlx.win, 3, 1L<<1, onrelease_event, &eventpkg); // onrelease event
     mlx_loop_hook(mlx.mlx, loop_event, &eventpkg);
+    render(&eventpkg);
     mlx_loop(mlx.mlx);
 }
 // mlx_string_put(mlx, win, 0, 10, 0xFFFFFF, "currently on: ground");
+
+// bir sonraki gün (sanırım ayın 21'i) şunları yap:
+// loop_event'in içindekileri ayır
+// flowey'in ataklarını bitir
+// ataklara değme, collectible'lara değme eventlerini yap
+// yeter da
+// map structunun içine ```bool enemies``` ekle boylece mapte enemy olup olmadığını-
+// anlayıp ona göre animasyonu aktif edersin
+// he bi de put_image falan bi fonksiyon yazıver

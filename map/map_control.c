@@ -6,7 +6,7 @@
 /*   By: btuncer <btuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 22:59:23 by btuncer           #+#    #+#             */
-/*   Updated: 2025/02/13 13:20:16 by btuncer          ###   ########.fr       */
+/*   Updated: 2025/02/19 06:39:39 by btuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ static void set_pos(struct s_map *map)
     
     x = 0;
     y = 0;
-    while ((map->map)[y][x])
+    while ((map->map)[y])
     {
         while ((map->map)[y][x])
         {
@@ -114,7 +114,11 @@ static void set_pos(struct s_map *map)
                 map->start_pos.x = x;
                 map->current_pos.y = y;
                 map->current_pos.x = x;
-                return ;
+            }
+            else if ((map->map)[y][x] == 'E')
+            {
+                map->exit_pos.y = y;
+                map->exit_pos.x = x;
             }
             x++;
         }
@@ -132,3 +136,4 @@ bool map_is_valid(char *path, struct s_map *map)
     set_pos(map);
     return (true);
 }
+

@@ -15,6 +15,7 @@ SOURCES = \
 		map/map_control.c \
 		map/map_simulate.c \
 		render/render.c \
+		render/init_images.c \
 		player/player.c \
 
 OBJ = $(SOURCES:.c=.o)

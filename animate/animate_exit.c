@@ -1,19 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render.h                                           :+:      :+:    :+:   */
+/*   animate_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: btuncer <btuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/12 15:11:07 by btuncer           #+#    #+#             */
-/*   Updated: 2025/02/19 07:53:34 by btuncer          ###   ########.fr       */
+/*   Created: 2025/02/19 02:03:39 by btuncer           #+#    #+#             */
+/*   Updated: 2025/02/19 02:05:09 by btuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RENDER_H
-# define RENDER_H
-
-void render(struct s_eventpkg *evpkg);
-struct s_images init_images(struct s_mlx *mlx);
-
-#endif
