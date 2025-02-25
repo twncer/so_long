@@ -15,5 +15,7 @@
 
 void render(struct s_eventpkg *evpkg);
 struct s_images init_images(struct s_mlx *mlx);
+void render_exit(struct s_eventpkg *evpkg);
+void render_enemy(struct s_eventpkg *evpkg);
 
 #endif

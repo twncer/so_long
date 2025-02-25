@@ -84,9 +84,9 @@ int loop_event(struct s_eventpkg *evpkg)
 
     /* star animation */
     time_h = current_time_ms();
-    if (time_h % 400 == 0) // every 400ms
+    if (time_h % 600 == 0) // every 400ms
     {
-        if (!(star_last_time + 100 > time_h))
+        if (!(star_last_time + 599 > time_h))
         {
             if (star_animation == 1)
             {
@@ -103,9 +103,9 @@ int loop_event(struct s_eventpkg *evpkg)
             render_exit(evpkg); // render only exit
         }
     }
-    if (time_h % 200 == 0)
+    if (time_h % 500 == 0)
     {
-        if (!(flowey_last_time + 100 > time_h))
+        if (!(flowey_last_time + 499 > time_h))
         {
             if (flowey_animation == 1)
             {
