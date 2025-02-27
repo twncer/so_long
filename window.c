@@ -6,7 +6,7 @@
 /*   By: btuncer <btuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 18:56:13 by btuncer           #+#    #+#             */
-/*   Updated: 2025/02/19 08:00:10 by btuncer          ###   ########.fr       */
+/*   Updated: 2025/02/27 20:17:44 by btuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,9 @@
 #include "./render/render.h"
 #include "./player/player.h"
 #include "./movement/movement.h"
+#include "./animate/sl_animations.h"
 #include <stdio.h>
 #include <sys/time.h>
-
-bool is_moving(bool set, bool to)
-{
-    static bool moving = false;
-    if (set)
-        moving = to;
-    return (moving);
-}
 
 long long current_time_ms()
 {
@@ -43,10 +36,10 @@ int onrelease_event(int key, struct s_eventpkg *evpkg)
 {
     int q;
     
-    if (evpkg->player.image != mlx_xpm_file_to_image(evpkg->mlx.mlx, "./textures/frisk/idle2.xpm", &q, &q))
-        evpkg->player.image = mlx_xpm_file_to_image(evpkg->mlx.mlx, "./textures/frisk/idle2.xpm", &q, &q);
     key_released(key, &(evpkg->key_list));
 }
+
+long long  a;
 
 int loop_event(struct s_eventpkg *evpkg)
 {
@@ -65,7 +58,6 @@ int loop_event(struct s_eventpkg *evpkg)
     }
     if (evpkg->key_list.key_d && evpkg->map.map[evpkg->player.position.y / 60][evpkg->player.position.x / 60 + 1] != '1')
     {
-        evpkg->player.image = mlx_xpm_file_to_image(evpkg->mlx.mlx, "./textures/frisk/walk_right/frame1.xpm", &q, &q);
         evpkg->player.position.x += PLAYER_PPM;
     }
     if (evpkg->key_list.key_a && evpkg->map.map[evpkg->player.position.y / 60][(evpkg->player.position.x - 1) / 60] != '1')
@@ -82,43 +74,12 @@ int loop_event(struct s_eventpkg *evpkg)
     evpkg->map.current_pos.x = evpkg->player.position.x / 60;
     evpkg->map.current_pos.y = evpkg->player.position.y / 60;
 
-    /* star animation */
     time_h = current_time_ms();
-    if (time_h % 600 == 0) // every 400ms
+    if (time_h - a > 500)
     {
-        if (!(star_last_time + 599 > time_h))
-        {
-            if (star_animation == 1)
-            {
-                evpkg->map.exit_image = mlx_xpm_file_to_image(evpkg->mlx.mlx, "./textures/star/star2.xpm", &q, &q);
-                star_animation = 2;
-            } else if (star_animation == 2) {
-                evpkg->map.exit_image = mlx_xpm_file_to_image(evpkg->mlx.mlx, "./textures/star/star3.xpm", &q, &q);
-                star_animation = 3;   
-            } else {
-                evpkg->map.exit_image = mlx_xpm_file_to_image(evpkg->mlx.mlx, "./textures/star/star1.xpm", &q, &q);
-                star_animation = 1;  
-            }
-            star_last_time = time_h;
-            render_exit(evpkg); // render only exit
-        }
-    }
-    if (time_h % 500 == 0)
-    {
-        if (!(flowey_last_time + 499 > time_h))
-        {
-            if (flowey_animation == 1)
-            {
-                evpkg->map.enemy_image = mlx_xpm_file_to_image(evpkg->mlx.mlx, "./textures/flowey/flowey2.xpm", &q, &q);
-                flowey_animation = 2;
-            } else if (flowey_animation == 2)
-            {
-                evpkg->map.enemy_image = mlx_xpm_file_to_image(evpkg->mlx.mlx, "./textures/flowey/flowey1.xpm", &q, &q);
-                flowey_animation = 1;
-            }
-            flowey_last_time = time_h;
-            render_enemy(evpkg);
-        }
+        animate_flowey(evpkg);
+        render(evpkg);
+        a = time_h;
     }
     printf("(%i:%i)\n", evpkg->map.current_pos.x, evpkg->map.current_pos.y);
 }
@@ -134,7 +95,7 @@ int main()
     struct s_eventpkg eventpkg;
     struct s_key_listener key_list;
     struct s_images images;
-        
+
     if (!map_is_valid(path, &map)) // also inits the map
         return (printf("Map is not valid."), 1);
     
@@ -148,6 +109,7 @@ int main()
         
     player = init_player(&map, mlx.mlx);
     images = init_images(mlx.mlx);
+    init_keys(&key_list);
     
     eventpkg.mlx = mlx;
     eventpkg.player = player;
@@ -170,4 +132,3 @@ int main()
 // yeter da
 // map structunun içine ```bool enemies``` ekle boylece mapte enemy olup olmadığını-
 // anlayıp ona göre animasyonu aktif edersin
-// he bi de put_image falan bi fonksiyon yazıver

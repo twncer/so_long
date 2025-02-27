@@ -6,7 +6,7 @@
 /*   By: btuncer <btuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 20:57:43 by btuncer           #+#    #+#             */
-/*   Updated: 2025/02/19 07:43:40 by btuncer          ###   ########.fr       */
+/*   Updated: 2025/02/27 19:09:55 by btuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,17 @@ struct						s_images
 	void					*star3;
 	void					*flowey1;
 	void					*flowey2;
+	void					*player_idle;
+	void					*player_r_1;
+	void					*player_r_2;
+	void					*player_b_1;
+	void					*player_b_2;
+	void					*player_l_1;
+	void					*player_l_2;
+	void					*player_t_1;
+	void					*player_t_2;
+	void					*player_t_3;
+	void *flowey[2];
 };
 
 struct						s_player

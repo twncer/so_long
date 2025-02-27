@@ -17,6 +17,7 @@ SOURCES = \
 		render/render.c \
 		render/init_images.c \
 		player/player.c \
+		animate/animate_flowey.c \
 
 OBJ = $(SOURCES:.c=.o)
 

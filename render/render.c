@@ -86,7 +86,6 @@ void render_around_player(struct s_eventpkg *evpkg)
 
 void render(struct s_eventpkg *evpkg)
 {
-    struct s_position pos;
     static bool first_time = true;
     
     if (first_time)
@@ -96,4 +95,5 @@ void render(struct s_eventpkg *evpkg)
         return ;
     }
     render_once(evpkg);
+    render_enemy(evpkg);
 }
