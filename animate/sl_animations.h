@@ -4,5 +4,7 @@
 # include "./../so_long.h"
 
 void animate_flowey(struct s_eventpkg *evpkg);
+void animate_player(struct s_eventpkg *evpkg);
+void idleize_player(struct s_eventpkg *evpkg);
 
 #endif

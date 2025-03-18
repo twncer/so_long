@@ -18,6 +18,8 @@ SOURCES = \
 		render/init_images.c \
 		player/player.c \
 		animate/animate_flowey.c \
+		animate/animate_player.c \
+
 
 OBJ = $(SOURCES:.c=.o)
 
@@ -33,5 +35,9 @@ fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
+
+run: re
+	rm -f $(OBJ)
+	./$(NAME)
 
 .PHONY: all clean fclean re

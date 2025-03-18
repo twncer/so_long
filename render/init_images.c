@@ -23,29 +23,21 @@ struct s_images init_images(struct s_mlx *mlx)
     
     images.wall = mlx_xpm_file_to_image(&mlx->mlx, "./textures/wall.xpm", &q, &q);
     images.ground = mlx_xpm_file_to_image(&mlx->mlx, "./textures/platform3.xpm", &q, &q);
-    images.star1 = mlx_xpm_file_to_image(&mlx->mlx, "./textures/star/star1.xpm", &q, &q);
-    images.star2 = mlx_xpm_file_to_image(&mlx->mlx, "./textures/star/star2.xpm", &q, &q);
-    images.star3 = mlx_xpm_file_to_image(&mlx->mlx, "./textures/star/star3.xpm", &q, &q);
-    images.flowey1 = mlx_xpm_file_to_image(&mlx->mlx, "./textures/flowey/flowey1.xpm", &q, &q);
-    images.flowey2 = mlx_xpm_file_to_image(&mlx->mlx, "./textures/flowey/flowey2.xpm", &q, &q);
-    
-    images.player_idle = mlx_xpm_file_to_image(&mlx->mlx, "./textures/frisk/frisk.xpm", &q, &q);
-    
-    images.player_r_1 = mlx_xpm_file_to_image(&mlx->mlx, "./textures/frisk/frisk_right_1.xpm", &q, &q);
-    images.player_r_2 = mlx_xpm_file_to_image(&mlx->mlx, "./textures/frisk/frisk_right_2.xpm", &q, &q);
-    
-    images.player_b_1 = mlx_xpm_file_to_image(&mlx->mlx, "./textures/frisk/frisk_front_1.xpm", &q, &q);
-    images.player_b_2 = mlx_xpm_file_to_image(&mlx->mlx, "./textures/frisk/frisk_front_2.xpm", &q, &q);
-
-    images.player_l_1 = mlx_xpm_file_to_image(&mlx->mlx, "./textures/frisk/frisk_left_1.xpm", &q, &q);
-    images.player_l_2 = mlx_xpm_file_to_image(&mlx->mlx, "./textures/frisk/frisk_left_2.xpm", &q, &q);
-    
-    images.player_t_1 = mlx_xpm_file_to_image(&mlx->mlx, "./textures/frisk/frisk_top_1.xpm", &q, &q);
-    images.player_t_2 = mlx_xpm_file_to_image(&mlx->mlx, "./textures/frisk/frisk_top_2.xpm", &q, &q);
-    images.player_t_3 = mlx_xpm_file_to_image(&mlx->mlx, "./textures/frisk/frisk_top_3.xpm", &q, &q);
-    
-    images.flowey[0] = images.flowey1;
-    images.flowey[1] = images.flowey2;
-    
+    images.star[0] = mlx_xpm_file_to_image(&mlx->mlx, "./textures/star/star1.xpm", &q, &q);
+    images.star[1] = mlx_xpm_file_to_image(&mlx->mlx, "./textures/star/star2.xpm", &q, &q);
+    images.star[2] = mlx_xpm_file_to_image(&mlx->mlx, "./textures/star/star3.xpm", &q, &q);
+    images.flowey[0] = mlx_xpm_file_to_image(&mlx->mlx, "./textures/flowey/flowey1.xpm", &q, &q);
+    images.flowey[1] = mlx_xpm_file_to_image(&mlx->mlx, "./textures/flowey/flowey2.xpm", &q, &q);
+    images.player[0][0] = mlx_xpm_file_to_image(&mlx->mlx, "./textures/frisk/frisk.xpm", &q, &q);
+    images.player[0][1] = mlx_xpm_file_to_image(&mlx->mlx, "./textures/frisk/frisk_top_1.xpm", &q, &q);
+    images.player[1][0] = mlx_xpm_file_to_image(&mlx->mlx, "./textures/frisk/frisk_top_2.xpm", &q, &q);
+    images.player[1][1] = mlx_xpm_file_to_image(&mlx->mlx, "./textures/frisk/frisk_top_3.xpm", &q, &q);
+    images.player[2][0] = mlx_xpm_file_to_image(&mlx->mlx, "./textures/frisk/frisk_right_1.xpm", &q, &q);
+    images.player[2][1] = mlx_xpm_file_to_image(&mlx->mlx, "./textures/frisk/frisk_right_2.xpm", &q, &q);
+    images.player[3][0] = mlx_xpm_file_to_image(&mlx->mlx, "./textures/frisk/frisk_front_1.xpm", &q, &q);
+    images.player[3][1] = mlx_xpm_file_to_image(&mlx->mlx, "./textures/frisk/frisk_front_2.xpm", &q, &q);
+    images.player[4][0] = mlx_xpm_file_to_image(&mlx->mlx, "./textures/frisk/frisk_left_1.xpm", &q, &q);
+    images.player[4][1] = mlx_xpm_file_to_image(&mlx->mlx, "./textures/frisk/frisk_left_2.xpm", &q, &q);
+        
     return (images);
 }

@@ -21,4 +21,5 @@ bool					rec_walls(int way, unsigned int x, unsigned int y,
 void init_keys(struct s_key_listener *key_list);
 void key_pressed(int key, struct s_key_listener *key_list);
 void key_released(int key, struct s_key_listener *key_list);
+void move_player(struct s_eventpkg *evpkg);
 #endif

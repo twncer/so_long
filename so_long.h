@@ -20,7 +20,8 @@
 # define WALL_H 99
 # define PLAYER_W 60
 # define PLAYER_H 86
-# define PLAYER_PPM 1 // pixel per move
+# define PLAYER_PPM 2// pixel per move
+# define attack_gap 30
 # define KEY_D 100
 # define KEY_A 97
 # define KEY_W 119
@@ -51,21 +52,9 @@ struct						s_images
 {
 	void					*wall;
 	void					*ground;
-	void					*star1;
-	void					*star2;
-	void					*star3;
-	void					*flowey1;
-	void					*flowey2;
-	void					*player_idle;
-	void					*player_r_1;
-	void					*player_r_2;
-	void					*player_b_1;
-	void					*player_b_2;
-	void					*player_l_1;
-	void					*player_l_2;
-	void					*player_t_1;
-	void					*player_t_2;
-	void					*player_t_3;
+	void *exit[3];
+	void *star[3];
+	void *player[5][2];
 	void *flowey[2];
 };
 
@@ -108,5 +97,7 @@ struct						s_eventpkg
 	struct s_key_listener	key_list;
 	struct s_images			images;
 };
+
+long long current_time_ms();
 
 #endif

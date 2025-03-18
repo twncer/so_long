@@ -33,61 +33,25 @@ int onpress_event(int key, struct s_eventpkg *evpkg)
 }
 
 int onrelease_event(int key, struct s_eventpkg *evpkg)
-{
-    int q;
-    
+{    
     key_released(key, &(evpkg->key_list));
 }
 
-long long  a;
-
 int loop_event(struct s_eventpkg *evpkg)
 {
-    int q;
-    static int star_animation = 1;
-    static int flowey_animation = 1;
-    static long long star_last_time = 0;
-    static long long flowey_last_time = 0;
     long long time_h;
+    static long long last_time = 0;
     
-    /* movement */
-    if (evpkg->key_list.key_a || evpkg->key_list.key_d 
-    || evpkg->key_list.key_w || evpkg->key_list.key_s) // render if just player moves
-    {
-        render(evpkg);
-    }
-    if (evpkg->key_list.key_d && evpkg->map.map[evpkg->player.position.y / 60][evpkg->player.position.x / 60 + 1] != '1')
-    {
-        evpkg->player.position.x += PLAYER_PPM;
-    }
-    if (evpkg->key_list.key_a && evpkg->map.map[evpkg->player.position.y / 60][(evpkg->player.position.x - 1) / 60] != '1')
-        evpkg->player.position.x -= PLAYER_PPM;
-
-    if (evpkg->key_list.key_w && !(evpkg->map.map[(evpkg->player.position.y - 1) / 60][evpkg->player.position.x / 60] == '1' ||
-        evpkg->map.map[(evpkg->player.position.y - 1) / 60][(evpkg->player.position.x + 59) / 60] == '1'))
-        evpkg->player.position.y -= PLAYER_PPM;
-
-    if (evpkg->key_list.key_s && !(evpkg->map.map[(evpkg->player.position.y + 1) / 60][evpkg->player.position.x / 60] == '1' ||
-        evpkg->map.map[(evpkg->player.position.y + 1) / 60][(evpkg->player.position.x + 59) / 60] == '1'))
-        evpkg->player.position.y += PLAYER_PPM;
-        
-    evpkg->map.current_pos.x = evpkg->player.position.x / 60;
-    evpkg->map.current_pos.y = evpkg->player.position.y / 60;
-
-    time_h = current_time_ms();
-    if (time_h - a > 500)
-    {
-        animate_flowey(evpkg);
-        render(evpkg);
-        a = time_h;
-    }
-    printf("(%i:%i)\n", evpkg->map.current_pos.x, evpkg->map.current_pos.y);
+    move_player(evpkg);
+    animate_flowey(evpkg);
+    
+    render(evpkg);
 }
 // mlx_destroy_window(eventpkg->mlx.mlx, eventpkg->mlx.win);
 
 int main()
 {
-    char *path = "./maps/flowerbed_short.ber";
+    char *path = "./maps/maze.ber";
     
     struct s_mlx mlx;
     struct s_map map;
@@ -103,6 +67,8 @@ int main()
     if (!mlx.mlx)
         return (printf("MLX init failed.\n"), 1);
     
+    mlx_do_key_autorepeatoff(mlx.mlx);
+
     mlx.win = mlx_new_window(mlx.mlx, WIN_W, WIN_H, "so_long.xd");
     if (!mlx.win)
         return(printf("Window creation fault.\n"), 1);
