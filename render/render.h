@@ -19,5 +19,6 @@ void render_exit(struct s_eventpkg *evpkg);
 void render_enemy(struct s_eventpkg *evpkg);
 long camera_move_x(long set);
 long camera_move_y(long set);
+void put_img(struct s_mlx *mlx, void *image, unsigned int x, unsigned int y);
 
 #endif

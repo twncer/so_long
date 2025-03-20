@@ -17,6 +17,7 @@
 #include "./player/player.h"
 #include "./movement/movement.h"
 #include "./animate/sl_animations.h"
+#include "./enemy_shoot/shoot.h"
 #include <stdio.h>
 #include <sys/time.h>
 
@@ -44,14 +45,17 @@ int loop_event(struct s_eventpkg *evpkg)
     
     move_player(evpkg);
     animate_flowey(evpkg);
-    
+    animate_palette(evpkg);
+    shoot(evpkg);
+
     render(evpkg);
+
 }
 // mlx_destroy_window(eventpkg->mlx.mlx, eventpkg->mlx.win);
 
 int main()
 {
-    char *path = "./maps/maze.ber";
+    char *path = "./maps/flowerbed_short.ber";
     
     struct s_mlx mlx;
     struct s_map map;

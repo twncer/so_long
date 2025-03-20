@@ -20,8 +20,8 @@
 # define WALL_H 99
 # define PLAYER_W 60
 # define PLAYER_H 86
-# define PLAYER_PPM 2// pixel per move
-# define attack_gap 30
+# define PLAYER_PPM 1// pixel per move
+# define ATTACK_GAP 10
 # define KEY_D 100
 # define KEY_A 97
 # define KEY_W 119
@@ -46,6 +46,7 @@ struct						s_map
 	struct s_position		exit_pos;
 	void					*exit_image;
 	void					*enemy_image;
+	void	*palette_image;
 };
 
 struct						s_images
@@ -56,6 +57,7 @@ struct						s_images
 	void *star[3];
 	void *player[5][2];
 	void *flowey[2];
+	void *palette[2];
 };
 
 struct						s_player

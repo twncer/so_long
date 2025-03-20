@@ -19,7 +19,7 @@ long camera_move_y(long set)
     return (moves_y);
 }
 
-static void put_img(struct s_mlx *mlx, void *image, unsigned int x, unsigned int y)
+void put_img(struct s_mlx *mlx, void *image, unsigned int x, unsigned int y)
 {
     mlx_put_image_to_window(mlx->mlx, mlx->win, image, x - camera_move_x(0), y - camera_move_y(0));
 }
