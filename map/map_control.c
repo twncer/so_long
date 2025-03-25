@@ -101,9 +101,11 @@ static void set_pos(struct s_map *map)
 {
     unsigned int x;
     unsigned int y;
+    unsigned int collectibles;
     
     x = 0;
     y = 0;
+    collectibles = 0;
     while ((map->map)[y])
     {
         while ((map->map)[y][x])
@@ -120,11 +122,14 @@ static void set_pos(struct s_map *map)
                 map->exit_pos.y = y;
                 map->exit_pos.x = x;
             }
+            else if ((map->map)[y][x] == 'C')
+                collectibles++;
             x++;
         }
         x = 0;
         y++;
     }
+    map->collectibles_left = collectibles;
 }
 
 bool map_is_valid(char *path, struct s_map *map)

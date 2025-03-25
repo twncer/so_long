@@ -46,7 +46,8 @@ struct						s_map
 	struct s_position		exit_pos;
 	void					*exit_image;
 	void					*enemy_image;
-	void	*palette_image;
+	void	*pellet_image;
+	int collectibles_left;
 };
 
 struct						s_images
@@ -57,7 +58,8 @@ struct						s_images
 	void *star[3];
 	void *player[5][2];
 	void *flowey[2];
-	void *palette[2];
+	void *pellets[2];
+	void *collectible;
 };
 
 struct						s_player

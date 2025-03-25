@@ -19,9 +19,10 @@ SOURCES = \
 		player/player.c \
 		animate/animate_flowey.c \
 		animate/animate_player.c \
-		animate/animate_palette.c \
+		animate/animate_pellets.c \
+		animate/animate_exit.c \
+		collectibles/collect.c \
 		enemy_shoot/shoot.c \
-
 
 OBJ = $(SOURCES:.c=.o)
 

@@ -18,6 +18,7 @@
 #include "./movement/movement.h"
 #include "./animate/sl_animations.h"
 #include "./enemy_shoot/shoot.h"
+#include "./collectibles/collectibles.h"
 #include <stdio.h>
 #include <sys/time.h>
 
@@ -46,9 +47,12 @@ int loop_event(struct s_eventpkg *evpkg)
     move_player(evpkg);
     animate_flowey(evpkg);
     animate_palette(evpkg);
-    shoot(evpkg);
+    animate_exit(evpkg);
+    collect(evpkg);
 
     render(evpkg);
+
+    shoot(evpkg);
 
 }
 // mlx_destroy_window(eventpkg->mlx.mlx, eventpkg->mlx.win);
@@ -81,6 +85,8 @@ int main()
     images = init_images(mlx.mlx);
     init_keys(&key_list);
     
+    map.exit_image = images.star[0]; // AAAAAAAAAAAAAAAAA
+
     eventpkg.mlx = mlx;
     eventpkg.player = player;
     eventpkg.map = map;

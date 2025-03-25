@@ -7,5 +7,6 @@ void animate_flowey(struct s_eventpkg *evpkg);
 void animate_player(struct s_eventpkg *evpkg);
 void idleize_player(struct s_eventpkg *evpkg);
 void animate_palette(struct s_eventpkg *evpkg);
+void animate_exit(struct s_eventpkg *evpkg);
 
 #endif

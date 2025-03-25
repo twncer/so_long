@@ -36,6 +36,12 @@ void move_player(struct s_eventpkg *evpkg)
 		camera_move_x(evpkg->player.position.x - 21 * 60 - 1);
 	if (evpkg->map.current_pos.y > 10)
 		camera_move_y(evpkg->player.position.y - 11 * 60 - 1);
+
+	if ((evpkg->player.position.x + 30) / 60 == evpkg->map.exit_pos.x &&
+		(evpkg->player.position.y + 30) / 60 == evpkg->map.exit_pos.y &&
+		evpkg->map.collectibles_left == 0)
+		while(1)
+			while(1);
 }
 
 bool	rec_walls(int way, unsigned int x, unsigned int y, char **map)

@@ -38,7 +38,8 @@ struct s_images init_images(struct s_mlx *mlx)
     images.player[3][1] = mlx_xpm_file_to_image(&mlx->mlx, "./textures/frisk/frisk_front_2.xpm", &q, &q);
     images.player[4][0] = mlx_xpm_file_to_image(&mlx->mlx, "./textures/frisk/frisk_left_1.xpm", &q, &q);
     images.player[4][1] = mlx_xpm_file_to_image(&mlx->mlx, "./textures/frisk/frisk_left_2.xpm", &q, &q);
-    images.palette[0] = mlx_xpm_file_to_image(&mlx->mlx, "./textures/flowey/palette_1.xpm", &q, &q);
-    images.palette[1] = mlx_xpm_file_to_image(&mlx->mlx, "./textures/flowey/palette_2.xpm", &q, &q);
+    images.pellets[0] = mlx_xpm_file_to_image(&mlx->mlx, "./textures/flowey/pellet_1.xpm", &q, &q);
+    images.pellets[1] = mlx_xpm_file_to_image(&mlx->mlx, "./textures/flowey/pellet_2.xpm", &q, &q);
+    images.collectible = mlx_xpm_file_to_image(&mlx->mlx, "./textures/collectible.xpm", &q, &q);
     return (images);
 }

@@ -1,0 +1,1 @@
+void collect(struct s_eventpkg *evpkg);

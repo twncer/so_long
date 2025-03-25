@@ -16,5 +16,5 @@ void animate_palette(struct s_eventpkg *evpkg)
             frame = 0;
         frame_log_time = time_h;
     }
-    evpkg->map.palette_image = evpkg->images.palette[frame];
+    evpkg->map.pellet_image = evpkg->images.pellets[frame];
 }
