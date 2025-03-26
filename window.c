@@ -43,7 +43,7 @@ int loop_event(struct s_eventpkg *evpkg)
 {
     long long time_h;
     static long long last_time = 0;
-    
+
     move_player(evpkg);
     animate_flowey(evpkg);
     animate_palette(evpkg);
@@ -53,7 +53,6 @@ int loop_event(struct s_eventpkg *evpkg)
     render(evpkg);
 
     shoot(evpkg);
-
 }
 // mlx_destroy_window(eventpkg->mlx.mlx, eventpkg->mlx.win);
 
@@ -75,7 +74,7 @@ int main()
     if (!mlx.mlx)
         return (printf("MLX init failed.\n"), 1);
     
-    mlx_do_key_autorepeatoff(mlx.mlx);
+    // mlx_do_key_autorepeatoff(mlx.mlx);
 
     mlx.win = mlx_new_window(mlx.mlx, WIN_W, WIN_H, "so_long.xd");
     if (!mlx.win)

@@ -34,8 +34,8 @@ void move_player(struct s_eventpkg *evpkg)
 
 	if (evpkg->map.current_pos.x > 20)
 		camera_move_x(evpkg->player.position.x - 21 * 60 - 1);
-	if (evpkg->map.current_pos.y > 10)
-		camera_move_y(evpkg->player.position.y - 11 * 60 - 1);
+	if (evpkg->map.current_pos.y > 8)
+		camera_move_y(evpkg->player.position.y - 9 * 60 - 1);
 
 	if ((evpkg->player.position.x + 30) / 60 == evpkg->map.exit_pos.x &&
 		(evpkg->player.position.y + 30) / 60 == evpkg->map.exit_pos.y &&

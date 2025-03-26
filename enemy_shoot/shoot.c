@@ -26,6 +26,11 @@ void shoot(struct s_eventpkg *evpkg)
         pos.y++;
     }
 
+    if (evpkg->map.map[(evpkg->player.position.y + 30) / 60][(evpkg->player.position.x + 50 - (attack_phase * 5)) / 60 + 1] == 'F' ||
+        evpkg->map.map[(evpkg->player.position.y + 30) / 60][(evpkg->player.position.x + 10 + (attack_phase * 5)) / 60 - 1] == 'F')
+        while(1)
+            while(1);
+
     time_h = current_time_ms();
     if (time_h - frame_log_time > 100)
     {

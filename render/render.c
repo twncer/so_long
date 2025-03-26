@@ -104,6 +104,8 @@ void render(struct s_eventpkg *evpkg)
         first_time = !first_time;
         return ;
     }
+    put_img(&evpkg->mlx, evpkg->map.pellet_image, evpkg->player.position.x, evpkg->player.position.y + 30);
+    put_img(&evpkg->mlx, evpkg->map.pellet_image, evpkg->player.position.x + 60, evpkg->player.position.y + 30);
     render_once(evpkg);
     render_enemy(evpkg);
 }
