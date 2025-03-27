@@ -1,5 +1,6 @@
 #include "./../so_long.h"
 #include "./../render/render.h"
+#include "./../sequences/seq.h"
 
 void shoot(struct s_eventpkg *evpkg)
 {
@@ -27,12 +28,11 @@ void shoot(struct s_eventpkg *evpkg)
     }
 
     if (evpkg->map.map[(evpkg->player.position.y + 30) / 60][(evpkg->player.position.x + 50 - (attack_phase * 5)) / 60 + 1] == 'F' ||
-        evpkg->map.map[(evpkg->player.position.y + 30) / 60][(evpkg->player.position.x + 10 + (attack_phase * 5)) / 60 - 1] == 'F')
-        while(1)
-            while(1);
+        evpkg->map.map[(evpkg->player.position.y + 30) / 60][(evpkg->player.position.x + 20 + (attack_phase * 5)) / 60 - 1] == 'F')
+        seq_dead(evpkg);
 
     time_h = current_time_ms();
-    if (time_h - frame_log_time > 100)
+    if (time_h - frame_log_time > 200)
     {
         if (attack_phase == 8)
             attack_phase = 0;

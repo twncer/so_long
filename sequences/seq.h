@@ -1,0 +1,1 @@
+void seq_dead(struct s_eventpkg *evpkg);

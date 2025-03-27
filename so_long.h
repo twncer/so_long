@@ -26,6 +26,7 @@
 # define KEY_A 97
 # define KEY_W 119
 # define KEY_S 115
+# define KEY_ESC 65307
 
 struct						s_position
 {
@@ -60,6 +61,7 @@ struct						s_images
 	void *flowey[2];
 	void *pellets[2];
 	void *collectible;
+	void *seq_images[1];
 };
 
 struct						s_player
@@ -103,5 +105,6 @@ struct						s_eventpkg
 };
 
 long long current_time_ms();
+void terminate(struct s_eventpkg *evpkg);
 
 #endif

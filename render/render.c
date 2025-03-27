@@ -39,7 +39,7 @@ static void render_once(struct s_eventpkg *evpkg)
             else if (evpkg->map.map[pos.y][pos.x] == '1')
                 put_img(&evpkg->mlx, evpkg->images.wall, pos.x * GROUND_W, pos.y * GROUND_W);
             if (evpkg->map.map[pos.y][pos.x] == 'C')
-                put_img(&evpkg->mlx, evpkg->images.collectible, pos.x * GROUND_W + 15, pos.y * GROUND_W + 16);
+                put_img(&evpkg->mlx, evpkg->images.collectible, pos.x * GROUND_W + 15, pos.y * GROUND_W + 20);
             else if (evpkg->map.map[pos.y][pos.x] == 'E')
                 put_img(&evpkg->mlx, evpkg->map.exit_image, pos.x * GROUND_W + 15, pos.y * GROUND_W + 16);
             pos.x++;

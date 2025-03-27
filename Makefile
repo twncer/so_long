@@ -8,6 +8,7 @@ LIBMLX_DIR = vendor/minilibx-linux/libmlx_Linux.a
 
 SOURCES = \
 		window.c \
+		terminate.c \
 		vendor/libsl/libsl_page_1.c \
 		vendor/libsl/sl_split.c \
 		movement/movement.c \
@@ -23,6 +24,7 @@ SOURCES = \
 		animate/animate_exit.c \
 		collectibles/collect.c \
 		enemy_shoot/shoot.c \
+		sequences/sequences.c \
 
 OBJ = $(SOURCES:.c=.o)
 

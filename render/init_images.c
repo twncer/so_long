@@ -41,5 +41,6 @@ struct s_images init_images(struct s_mlx *mlx)
     images.pellets[0] = mlx_xpm_file_to_image(&mlx->mlx, "./textures/flowey/pellet_1.xpm", &q, &q);
     images.pellets[1] = mlx_xpm_file_to_image(&mlx->mlx, "./textures/flowey/pellet_2.xpm", &q, &q);
     images.collectible = mlx_xpm_file_to_image(&mlx->mlx, "./textures/collectible.xpm", &q, &q);
+    images.seq_images[0] = mlx_xpm_file_to_image(&mlx->mlx, "./textures/seq/uded.xpm", &q, &q);
     return (images);
 }
