@@ -24,6 +24,11 @@ void put_img(struct s_mlx *mlx, void *image, unsigned int x, unsigned int y)
     mlx_put_image_to_window(mlx->mlx, mlx->win, image, x - camera_move_x(0), y - camera_move_y(0));
 }
 
+void put_img_to_hud(struct s_mlx *mlx, void *image, unsigned int x, unsigned int y)
+{
+    mlx_put_image_to_window(mlx->mlx, mlx->win, image, x, y);
+}
+
 static void render_once(struct s_eventpkg *evpkg)
 {
     struct s_position pos;
@@ -104,8 +109,6 @@ void render(struct s_eventpkg *evpkg)
         first_time = !first_time;
         return ;
     }
-    put_img(&evpkg->mlx, evpkg->map.pellet_image, evpkg->player.position.x, evpkg->player.position.y + 30);
-    put_img(&evpkg->mlx, evpkg->map.pellet_image, evpkg->player.position.x + 60, evpkg->player.position.y + 30);
     render_once(evpkg);
     render_enemy(evpkg);
 }

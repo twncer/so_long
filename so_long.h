@@ -75,12 +75,6 @@ struct						s_player
 	// s_player_images left;
 };
 
-struct						s_player_images
-{
-	void					*image1;
-	void					*image2;
-};
-
 struct						s_mlx
 {
 	void					*mlx;

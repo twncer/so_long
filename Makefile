@@ -17,6 +17,7 @@ SOURCES = \
 		map/map_simulate.c \
 		render/render.c \
 		render/init_images.c \
+		render/free_images.c \
 		player/player.c \
 		animate/animate_flowey.c \
 		animate/animate_player.c \
