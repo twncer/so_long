@@ -6,7 +6,7 @@
 /*   By: btuncer <btuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 22:59:23 by btuncer           #+#    #+#             */
-/*   Updated: 2025/02/19 06:39:39 by btuncer          ###   ########.fr       */
+/*   Updated: 2025/04/11 14:50:09 by btuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,10 +135,11 @@ static void set_pos(struct s_map *map)
 bool map_is_valid(char *path, struct s_map *map)
 {
     map->map = set_map(path);
-    map->is_rect = check_is_rect(map);
-    map->is_walls_valid = check_is_walls_valid(map);
-    // check if there is P C and E
-    set_pos(map);
-    return (true);
+    if (check_is_rect(map) && check_is_walls_valid(map))
+    {
+        set_pos(map);
+        return (true);
+    }
+    return (false);
 }
 

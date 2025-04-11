@@ -1,118 +1,77 @@
-#include "./../so_long.h"
-#include "./../render/render.h"
-#include "./../animate/sl_animations.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   movement.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: btuncer <btuncer@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/11 16:02:02 by btuncer           #+#    #+#             */
+/*   Updated: 2025/04/11 17:49:51 by btuncer          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void move_player(struct s_eventpkg *evpkg)
+#include "./../animate/sl_animations.h"
+#include "./../render/render.h"
+#include "./../so_long.h"
+#include "./../sequences/seq.h"
+
+bool	limiter(void)
 {
-	static int limiter = 0;
-	
+	static int	limiter = 0;
+
 	if (limiter == 1)
 	{
 		limiter = 0;
-		return ;
+		return (true);
 	}
 	else
 		limiter = 1;
-    if (evpkg->key_list.key_a || evpkg->key_list.key_d 
-    || evpkg->key_list.key_w || evpkg->key_list.key_s) // render just if player moves
+	return (false);
+}
+
+void	if_keys_pressed(struct s_eventpkg *evpkg)
+{
+	if (evpkg->key_list.key_a || evpkg->key_list.key_d || evpkg->key_list.key_w
+		|| evpkg->key_list.key_s)
 		animate_player(evpkg);
 	else
 		idleize_player(evpkg);
-    if (evpkg->key_list.key_d && evpkg->map.map[evpkg->player.position.y / 60][evpkg->player.position.x / 60 + 1] != '1')
-        evpkg->player.position.x += PLAYER_PPM;
-    if (evpkg->key_list.key_a && evpkg->map.map[evpkg->player.position.y / 60][(evpkg->player.position.x - 1) / 60] != '1')
-        evpkg->player.position.x -= PLAYER_PPM;
-    if (evpkg->key_list.key_w && !(evpkg->map.map[(evpkg->player.position.y - 1) / 60][evpkg->player.position.x / 60] == '1' ||
-        evpkg->map.map[(evpkg->player.position.y - 1) / 60][(evpkg->player.position.x + 59) / 60] == '1'))
-        evpkg->player.position.y -= PLAYER_PPM;
-    if (evpkg->key_list.key_s && !(evpkg->map.map[(evpkg->player.position.y + 1) / 60][evpkg->player.position.x / 60] == '1' ||
-        evpkg->map.map[(evpkg->player.position.y + 1) / 60][(evpkg->player.position.x + 59) / 60] == '1'))
-        evpkg->player.position.y += PLAYER_PPM;
-        
-    evpkg->map.current_pos.x = evpkg->player.position.x / 60;
-    evpkg->map.current_pos.y = evpkg->player.position.y / 60;
+}
 
+void	player_actions(struct s_eventpkg *evpkg)
+{
+	evpkg->map.current_pos.x = evpkg->player.position.x / 60;
+	evpkg->map.current_pos.y = evpkg->player.position.y / 60;
 	if (evpkg->map.current_pos.x > 20)
 		camera_move_x(evpkg->player.position.x - 21 * 60 - 1);
 	if (evpkg->map.current_pos.y > 8)
 		camera_move_y(evpkg->player.position.y - 9 * 60 - 1);
-
-	if ((evpkg->player.position.x + 30) / 60 == evpkg->map.exit_pos.x &&
-		(evpkg->player.position.y + 30) / 60 == evpkg->map.exit_pos.y &&
-		evpkg->map.collectibles_left == 0)
-		while(1)
-			while(1);
+	if ((evpkg->player.position.x + 30) / 60 == evpkg->map.exit_pos.x
+		&& (evpkg->player.position.y + 30) / 60 == evpkg->map.exit_pos.y
+		&& evpkg->map.collectibles_left == 0)
+		seq_win(evpkg);
 }
 
-bool	rec_walls(int way, unsigned int x, unsigned int y, char **map)
+void	move_player(struct s_eventpkg *evpkg)
 {
-	if (way == 0)
-		return (map[y - 1][x] == '1');
-	if (way == 1)
-		return (map[y][x + 1] == '1');
-	if (way == 2)
-		return (map[y + 1][x] == '1');
-	if (way == 3)
-		return (map[y][x - 1] == '1');
-	return (false);
-}
-
-char	move_top(struct s_map *map)
-{
-	char	swap;
-
-	if (!rec_walls(0, map->current_pos.x, map->current_pos.y, map->map))
-	{
-		swap = (map->map)[map->current_pos.y - 1][map->current_pos.x];
-		(map->map)[map->current_pos.y][map->current_pos.x] = '0';
-		(map->map)[map->current_pos.y - 1][map->current_pos.x] = 'P';
-		map->current_pos.y = (map->current_pos.y) - 1;
-		return (swap);
-	}
-	return ('Q');
-}
-
-char	move_right(struct s_map *map)
-{
-	char	swap;
-
-	if (!rec_walls(1, map->current_pos.x, map->current_pos.y, map->map))
-	{
-		swap = (map->map)[map->current_pos.y][map->current_pos.x + 1];
-		(map->map)[map->current_pos.y][map->current_pos.x] = '0';
-		(map->map)[map->current_pos.y][map->current_pos.x + 1] = 'P';
-		map->current_pos.x = (map->current_pos.x) + 1;
-		return (swap);
-	}
-	return ('Q');
-}
-
-char	move_bottom(struct s_map *map)
-{
-	char	swap;
-
-	if (!rec_walls(2, map->current_pos.x, map->current_pos.y, map->map))
-	{
-		swap = (map->map)[map->current_pos.y + 1][map->current_pos.x];
-		(map->map)[map->current_pos.y][map->current_pos.x] = '0';
-		(map->map)[map->current_pos.y + 1][map->current_pos.x] = 'P';
-		map->current_pos.y = (map->current_pos.y) + 1;
-		return (swap);
-	}
-	return ('Q');
-}
-
-char	move_left(struct s_map *map)
-{
-	char swap;
-
-	if (!rec_walls(3, map->current_pos.x, map->current_pos.y, map->map))
-	{
-		swap = (map->map)[map->current_pos.y][map->current_pos.x - 1];
-		(map->map)[map->current_pos.y][map->current_pos.x] = '0';
-		(map->map)[map->current_pos.y][map->current_pos.x - 1] = 'P';
-		map->current_pos.x = (map->current_pos.x) - 1;
-		return (swap);
-	}
-	return ('Q');
+	if (limiter())
+		return ;
+	if_keys_pressed(evpkg);
+	if (evpkg->key_list.key_d && evpkg->map.map[evpkg->player.position.y
+			/ 60][evpkg->player.position.x / 60 + 1] != '1')
+		evpkg->player.position.x += PLAYER_PPM;
+	if (evpkg->key_list.key_a && evpkg->map.map[evpkg->player.position.y
+			/ 60][(evpkg->player.position.x - 1) / 60] != '1')
+		evpkg->player.position.x -= PLAYER_PPM;
+	if (evpkg->key_list.key_w && !(evpkg->map.map[(evpkg->player.position.y - 1)
+				/ 60][evpkg->player.position.x / 60] == '1'
+		|| evpkg->map.map[(evpkg->player.position.y - 1)
+			/ 60][(evpkg->player.position.x + 59) / 60] == '1'))
+		evpkg->player.position.y -= PLAYER_PPM;
+	if (evpkg->key_list.key_s && !(evpkg->map.map[(evpkg->player.position.y + 1)
+				/ 60][evpkg->player.position.x / 60] == '1'
+		|| evpkg->map.map[(evpkg->player.position.y + 1)
+			/ 60][(evpkg->player.position.x + 59) / 60] == '1'))
+		evpkg->player.position.y += PLAYER_PPM;
+	player_actions(evpkg);
 }

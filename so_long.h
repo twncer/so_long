@@ -6,7 +6,7 @@
 /*   By: btuncer <btuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 20:57:43 by btuncer           #+#    #+#             */
-/*   Updated: 2025/02/27 19:09:55 by btuncer          ###   ########.fr       */
+/*   Updated: 2025/04/11 17:22:50 by btuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ struct						s_map
 	struct s_position		exit_pos;
 	void					*exit_image;
 	void					*enemy_image;
-	void	*pellet_image;
+	void					*pellet_image;
 	int collectibles_left;
 };
 
@@ -61,7 +61,7 @@ struct						s_images
 	void *flowey[2];
 	void *pellets[2];
 	void *collectible;
-	void *seq_images[1];
+	void *seq_images[2];
 };
 
 struct						s_player

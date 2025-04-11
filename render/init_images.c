@@ -6,7 +6,7 @@
 /*   By: btuncer <btuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 04:46:55 by btuncer           #+#    #+#             */
-/*   Updated: 2025/02/27 19:10:46 by btuncer          ###   ########.fr       */
+/*   Updated: 2025/04/11 17:41:00 by btuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,14 @@
 #include "./../vendor/libsl/libsl.h"
 #include <stdio.h>
 #include "render.h"
+
+void init_seq_images(struct s_mlx *mlx, struct s_images *images)
+{
+    int q;   
+
+    images->seq_images[0] = mlx_xpm_file_to_image(&mlx->mlx, "./textures/seq/uded.xpm", &q, &q);
+    images->seq_images[1] = mlx_xpm_file_to_image(&mlx->mlx, "./textures/seq/uwon.xpm", &q, &q);
+}
 
 struct s_images init_images(struct s_mlx *mlx)
 {
@@ -41,6 +49,6 @@ struct s_images init_images(struct s_mlx *mlx)
     images.pellets[0] = mlx_xpm_file_to_image(&mlx->mlx, "./textures/flowey/pellet_1.xpm", &q, &q);
     images.pellets[1] = mlx_xpm_file_to_image(&mlx->mlx, "./textures/flowey/pellet_2.xpm", &q, &q);
     images.collectible = mlx_xpm_file_to_image(&mlx->mlx, "./textures/collectible.xpm", &q, &q);
-    images.seq_images[0] = mlx_xpm_file_to_image(&mlx->mlx, "./textures/seq/uded.xpm", &q, &q);
+    init_seq_images(mlx, &images);
     return (images);
 }
