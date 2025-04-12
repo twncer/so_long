@@ -1,11 +1,8 @@
 #include "./../so_long.h"
 #include "./../render/render.h"
 
-void seq_starting(struct s_eventpkg *evpkg);
-
 void seq_dead(struct s_eventpkg *evpkg)
 {
-    printf("ded\n");
     long long time_h;
     long long time_h_2;
     long long frame_log_time;

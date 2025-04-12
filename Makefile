@@ -1,6 +1,6 @@
 NAME = so_long
 CC = cc
-#CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 MLX_DIR = vendor/minilibx-linux
 MLX_FLAGS = -lXext -lX11
 LIBMLX_DIR = vendor/minilibx-linux/libmlx_Linux.a
@@ -14,7 +14,6 @@ SOURCES = \
 		movement/movement.c \
 		movement/listen_keys.c \
 		map/map_control.c \
-		map/map_simulate.c \
 		render/render.c \
 		render/init_images.c \
 		render/free_images.c \
@@ -44,6 +43,6 @@ re: fclean all
 
 run: re
 	rm -f $(OBJ)
-	./$(NAME)
+	./$(NAME) ./maps/flowerbed_short.ber
 
 .PHONY: all clean fclean re

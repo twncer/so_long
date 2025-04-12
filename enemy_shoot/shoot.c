@@ -6,12 +6,13 @@
 /*   By: btuncer <btuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 14:43:43 by btuncer           #+#    #+#             */
-/*   Updated: 2025/04/11 14:48:55 by btuncer          ###   ########.fr       */
+/*   Updated: 2025/04/12 00:46:21 by btuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../sequences/seq.h"
 #include "./../so_long.h"
+#include "./../render/render.h"
 
 void	die(struct s_eventpkg *evpkg, int attack_phase)
 {

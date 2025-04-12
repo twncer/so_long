@@ -1,4 +1,5 @@
 #include "so_long.h"
+#include "./vendor/minilibx-linux/mlx.h"
 #include "render/render.h"
 #include <stdlib.h>
 

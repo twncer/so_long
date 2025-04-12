@@ -6,7 +6,7 @@
 /*   By: btuncer <btuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 20:57:43 by btuncer           #+#    #+#             */
-/*   Updated: 2025/04/11 17:22:50 by btuncer          ###   ########.fr       */
+/*   Updated: 2025/04/12 04:26:44 by btuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,5 +100,6 @@ struct						s_eventpkg
 
 long long current_time_ms();
 void terminate(struct s_eventpkg *evpkg);
+void free_map(char **map);
 
 #endif

@@ -6,8 +6,8 @@
 /*   By: btuncer <btuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 23:18:53 by btuncer           #+#    #+#             */
-/*   Updated: 2025/02/14 23:18:54 by btuncer          ###   ########.fr       */
+/*   Updated: 2025/04/11 22:38:31 by btuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-struct s_player init_player(struct s_map *map, void *mlx);
+struct s_player init_player(struct s_map *map);
