@@ -51,4 +51,16 @@ void free_images(struct s_eventpkg *evpkg)
 
     free_image(evpkg->mlx.mlx, evpkg->images.seq_images[0]);
     free_image(evpkg->mlx.mlx, evpkg->images.seq_images[1]);
+
+    free_image(evpkg->mlx.mlx, evpkg->images.numbers[0]);
+    free_image(evpkg->mlx.mlx, evpkg->images.numbers[1]); 
+    free_image(evpkg->mlx.mlx, evpkg->images.numbers[2]); 
+    free_image(evpkg->mlx.mlx, evpkg->images.numbers[3]); 
+    free_image(evpkg->mlx.mlx, evpkg->images.numbers[4]);
+    free_image(evpkg->mlx.mlx, evpkg->images.numbers[5]);
+    free_image(evpkg->mlx.mlx, evpkg->images.numbers[6]); 
+    free_image(evpkg->mlx.mlx, evpkg->images.numbers[7]); 
+    free_image(evpkg->mlx.mlx, evpkg->images.numbers[8]); 
+    free_image(evpkg->mlx.mlx, evpkg->images.numbers[9]);
+    free_image(evpkg->mlx.mlx, evpkg->images.numbers[10]);
 }

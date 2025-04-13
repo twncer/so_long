@@ -17,3 +17,4 @@ bool	in(char *str, char c);
 ssize_t	len(char *str);
 void	setstr(char **a, char **b, ssize_t start);
 char	**sl_split(char const *s, char c);
+char	*expand_buffer(char **buffer, char **expand);

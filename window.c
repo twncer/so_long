@@ -74,7 +74,7 @@ int main(int argc, char **argv)
         return (1);
     init_keys(&key_list);
     if (!map_is_valid(argv[1], &evpkg.map))
-        return (printf("Map is not valid.\n"), 1);
+        return (printf("Error!\nMap is not valid.\n"), 1);
     evpkg.mlx.mlx = mlx_init();
     if (!evpkg.mlx.mlx)
         return(printf("MLX initialization failed.\n"), 1);

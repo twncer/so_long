@@ -24,6 +24,23 @@ void init_seq_images(struct s_mlx *mlx, struct s_images *images)
     images->seq_images[1] = mlx_xpm_file_to_image(&mlx->mlx, "./textures/seq/uwon.xpm", &q, &q);
 }
 
+void init_number_images(struct s_mlx *mlx, struct s_images *images)
+{
+    int q;
+
+    images->numbers[0] = mlx_xpm_file_to_image(&mlx->mlx, "./textures/numbers/zero.xpm", &q, &q);
+    images->numbers[1] = mlx_xpm_file_to_image(&mlx->mlx, "./textures/numbers/one.xpm", &q, &q);
+    images->numbers[2] = mlx_xpm_file_to_image(&mlx->mlx, "./textures/numbers/two.xpm", &q, &q);
+    images->numbers[3] = mlx_xpm_file_to_image(&mlx->mlx, "./textures/numbers/three.xpm", &q, &q);
+    images->numbers[4] = mlx_xpm_file_to_image(&mlx->mlx, "./textures/numbers/four.xpm", &q, &q);
+    images->numbers[5] = mlx_xpm_file_to_image(&mlx->mlx, "./textures/numbers/five.xpm", &q, &q);
+    images->numbers[6] = mlx_xpm_file_to_image(&mlx->mlx, "./textures/numbers/six.xpm", &q, &q);
+    images->numbers[7] = mlx_xpm_file_to_image(&mlx->mlx, "./textures/numbers/seven.xpm", &q, &q);
+    images->numbers[8] = mlx_xpm_file_to_image(&mlx->mlx, "./textures/numbers/eight.xpm", &q, &q);
+    images->numbers[9] = mlx_xpm_file_to_image(&mlx->mlx, "./textures/numbers/nine.xpm", &q, &q);
+    images->numbers[10] = mlx_xpm_file_to_image(&mlx->mlx, "./textures/numbers/px.xpm", &q, &q);
+}
+
 struct s_images init_images(struct s_mlx *mlx)
 {
     struct s_images images;
@@ -50,5 +67,6 @@ struct s_images init_images(struct s_mlx *mlx)
     images.pellets[1] = mlx_xpm_file_to_image(&mlx->mlx, "./textures/flowey/pellet_2.xpm", &q, &q);
     images.collectible = mlx_xpm_file_to_image(&mlx->mlx, "./textures/collectible.xpm", &q, &q);
     init_seq_images(mlx, &images);
+    init_number_images(mlx, &images);
     return (images);
 }

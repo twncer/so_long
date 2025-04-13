@@ -13,6 +13,8 @@ SOURCES = \
 		vendor/libsl/sl_split.c \
 		movement/movement.c \
 		movement/listen_keys.c \
+		movement/display_moves.c \
+		map/map_control_utils.c \
 		map/map_control.c \
 		render/render.c \
 		render/init_images.c \
