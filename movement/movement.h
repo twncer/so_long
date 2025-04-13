@@ -6,7 +6,7 @@
 /*   By: btuncer <btuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 15:42:28 by btuncer           #+#    #+#             */
-/*   Updated: 2025/04/11 17:17:09 by btuncer          ###   ########.fr       */
+/*   Updated: 2025/04/13 21:19:35 by btuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@ void	init_keys(struct s_key_listener *key_list);
 void	key_pressed(int key, struct s_key_listener *key_list);
 void	key_released(int key, struct s_key_listener *key_list);
 void	move_player(struct s_eventpkg *evpkg);
-void display_moves(struct s_eventpkg *evpkg, unsigned int moves);
+void	display_moves(struct s_eventpkg *evpkg, unsigned int moves);
 
 #endif

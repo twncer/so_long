@@ -1,19 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   collectibles.h                                     :+:      :+:    :+:   */
+/*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: btuncer <btuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/11 14:46:40 by btuncer           #+#    #+#             */
-/*   Updated: 2025/04/13 21:39:15 by btuncer          ###   ########.fr       */
+/*   Created: 2025/04/13 18:22:40 by btuncer           #+#    #+#             */
+/*   Updated: 2025/04/13 21:41:16 by btuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COLLECTIBLES_H
-# define COLLECTIBLES_H
-# include "./../so_long.h"
+long	camera_move_x(long set)
+{
+	static long	moves_x = 0;
 
-void	collect(struct s_eventpkg *evpkg);
+	if (set > 0)
+		moves_x = set;
+	return (moves_x);
+}
 
-#endif
+long	camera_move_y(long set)
+{
+	static long	moves_y = 0;
+
+	if (set > 0)
+		moves_y = set;
+	return (moves_y);
+}

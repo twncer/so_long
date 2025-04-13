@@ -6,7 +6,7 @@
 /*   By: btuncer <btuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 20:57:43 by btuncer           #+#    #+#             */
-/*   Updated: 2025/04/12 04:26:44 by btuncer          ###   ########.fr       */
+/*   Updated: 2025/04/13 20:52:04 by btuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 # define GROUND_W 60
 # define WALL_H 99
 # define PLAYER_W 60
-# define PLAYER_H 86
-# define PLAYER_PPM 1// pixel per move
+# define PLAYER_HE 86
+# define PLAYER_PPM 1 // pixel per move
 # define ATTACK_GAP 10
 # define KEY_D 100
 # define KEY_A 97
@@ -36,9 +36,6 @@ struct						s_position
 
 struct						s_map
 {
-	bool is_rect;        // remove later
-	bool is_walls_valid; // remove later
-	bool is_solveable;   // replace it with is_valid
 	char					**map;
 	unsigned int			height;
 	unsigned int			width;
@@ -48,32 +45,28 @@ struct						s_map
 	void					*exit_image;
 	void					*enemy_image;
 	void					*pellet_image;
-	int collectibles_left;
+	int						collectibles_left;
 };
 
 struct						s_images
 {
 	void					*wall;
 	void					*ground;
-	void *exit[3];
-	void *star[3];
-	void *player[5][2];
-	void *flowey[2];
-	void *pellets[2];
-	void *collectible;
-	void *seq_images[2];
-	void *numbers[11];
+	void					*exit[3];
+	void					*star[3];
+	void					*player[5][2];
+	void					*flowey[2];
+	void					*pellets[2];
+	void					*collectible;
+	void					*seq_images[2];
+	void					*numbers[11];
 };
 
 struct						s_player
 {
-	struct s_position position; // ayak pozisyonu
+	struct s_position		position;
 	void					*image;
 	unsigned int			moves_px;
-	// s_player_images top;
-	// s_player_images right;
-	// s_player_images bottom;
-	// s_player_images left;
 };
 
 struct						s_mlx
@@ -99,8 +92,12 @@ struct						s_eventpkg
 	struct s_images			images;
 };
 
-long long current_time_ms();
-void terminate(struct s_eventpkg *evpkg);
-void free_map(char **map);
+long long					current_time_ms(void);
+int							onpress_event(int key, struct s_eventpkg *evpkg);
+int							onrelease_event(int key, struct s_eventpkg *evpkg);
+int							terminate_hook(struct s_eventpkg *evpkg);
+void						terminate(struct s_eventpkg *evpkg);
+int							loop_event(struct s_eventpkg *evpkg);
+void						free_map(char **map);
 
 #endif

@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   animate_flowey.c                                   :+:      :+:    :+:   */
+/*   put_image.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: btuncer <btuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/11 14:29:37 by btuncer           #+#    #+#             */
-/*   Updated: 2025/04/13 21:21:25 by btuncer          ###   ########.fr       */
+/*   Created: 2025/04/13 18:26:03 by btuncer           #+#    #+#             */
+/*   Updated: 2025/04/13 21:41:15 by btuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../so_long.h"
+#include "./../vendor/minilibx-linux/mlx.h"
+#include "./render.h"
 
-void	animate_flowey(struct s_eventpkg *evpkg)
+void	put_img(struct s_mlx *mlx, void *image, unsigned int x, unsigned int y)
 {
-	static int			frame = 0;
-	static long long	frame_log_time = 0;
-	long long			time_h;
+	mlx_put_image_to_window(mlx->mlx, mlx->win, image, x - camera_move_x(0), y
+		- camera_move_y(0));
+}
 
-	time_h = current_time_ms();
-	if (time_h - frame_log_time > 400)
-	{
-		if (frame == 0)
-			frame = 1;
-		else if (frame == 1)
-			frame = 0;
-		frame_log_time = time_h;
-	}
-	evpkg->map.enemy_image = evpkg->images.flowey[frame];
+void	put_img_to_hud(struct s_mlx *mlx, void *image, unsigned int x,
+		unsigned int y)
+{
+	mlx_put_image_to_window(mlx->mlx, mlx->win, image, x, y);
 }

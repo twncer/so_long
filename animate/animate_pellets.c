@@ -6,12 +6,11 @@
 /*   By: btuncer <btuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 14:29:44 by btuncer           #+#    #+#             */
-/*   Updated: 2025/04/11 14:31:56 by btuncer          ###   ########.fr       */
+/*   Updated: 2025/04/13 21:21:27 by btuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../so_long.h"
-#include "./sl_animations.h"
 
 void	animate_palette(struct s_eventpkg *evpkg)
 {

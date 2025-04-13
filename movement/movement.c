@@ -6,17 +6,17 @@
 /*   By: btuncer <btuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 16:02:02 by btuncer           #+#    #+#             */
-/*   Updated: 2025/04/11 17:49:51 by btuncer          ###   ########.fr       */
+/*   Updated: 2025/04/13 21:46:19 by btuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../animate/sl_animations.h"
 #include "./../render/render.h"
-#include "./../so_long.h"
 #include "./../sequences/seq.h"
+#include "./../so_long.h"
 #include "./movement.h"
-#include <stdio.h>
 #include <limits.h>
+#include <stdio.h>
 
 bool	limiter(void)
 {
@@ -55,9 +55,9 @@ void	player_actions(struct s_eventpkg *evpkg)
 		seq_win(evpkg);
 }
 
-unsigned int move_actually(struct s_eventpkg *evpkg, char ax)
+unsigned int	move_actually(struct s_eventpkg *evpkg, char ax)
 {
-	static unsigned int move_counter = 0;
+	static unsigned int	move_counter = 0;
 
 	if (ax == 'd')
 		evpkg->player.position.x += PLAYER_PPM;
