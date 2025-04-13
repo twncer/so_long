@@ -6,7 +6,7 @@
 /*   By: btuncer <btuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 18:56:13 by btuncer           #+#    #+#             */
-/*   Updated: 2025/04/13 21:43:24 by btuncer          ###   ########.fr       */
+/*   Updated: 2025/04/13 21:49:34 by btuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(int argc, char **argv)
 	struct s_eventpkg		evpkg;
 
 	if (!(argc == 2))
-		return (1);
+		return (ft_printf("Error!\nUsg: ./so_long_bonus {path_to_map}\n"), 1);
 	init_keys(&key_list);
 	if (!map_is_valid(argv[1], &evpkg.map, true))
 		return (ft_printf("Error!\nMap is not valid.\n"), 1);
