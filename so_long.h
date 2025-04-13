@@ -62,6 +62,7 @@ struct						s_images
 	void *pellets[2];
 	void *collectible;
 	void *seq_images[2];
+	void *numbers[11];
 };
 
 struct						s_player

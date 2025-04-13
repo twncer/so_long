@@ -14,6 +14,9 @@
 #include "./../render/render.h"
 #include "./../so_long.h"
 #include "./../sequences/seq.h"
+#include "./movement.h"
+#include <stdio.h>
+#include <limits.h>
 
 bool	limiter(void)
 {
@@ -52,6 +55,23 @@ void	player_actions(struct s_eventpkg *evpkg)
 		seq_win(evpkg);
 }
 
+unsigned int move_actually(struct s_eventpkg *evpkg, char ax)
+{
+	static unsigned int move_counter = 0;
+
+	if (ax == 'd')
+		evpkg->player.position.x += PLAYER_PPM;
+	else if (ax == 'a')
+		evpkg->player.position.x -= PLAYER_PPM;
+	else if (ax == 's')
+		evpkg->player.position.y += PLAYER_PPM;
+	else if (ax == 'w')
+		evpkg->player.position.y -= PLAYER_PPM;
+	if (ax == 'd' || ax == 'a' || ax == 's' || ax == 'w')
+		move_counter += 1;
+	return (move_counter);
+}
+
 void	move_player(struct s_eventpkg *evpkg)
 {
 	if (limiter())
@@ -59,19 +79,20 @@ void	move_player(struct s_eventpkg *evpkg)
 	if_keys_pressed(evpkg);
 	if (evpkg->key_list.key_d && evpkg->map.map[evpkg->player.position.y
 			/ 60][evpkg->player.position.x / 60 + 1] != '1')
-		evpkg->player.position.x += PLAYER_PPM;
+		move_actually(evpkg, 'd');
 	if (evpkg->key_list.key_a && evpkg->map.map[evpkg->player.position.y
 			/ 60][(evpkg->player.position.x - 1) / 60] != '1')
-		evpkg->player.position.x -= PLAYER_PPM;
+		move_actually(evpkg, 'a');
 	if (evpkg->key_list.key_w && !(evpkg->map.map[(evpkg->player.position.y - 1)
 				/ 60][evpkg->player.position.x / 60] == '1'
 		|| evpkg->map.map[(evpkg->player.position.y - 1)
 			/ 60][(evpkg->player.position.x + 59) / 60] == '1'))
-		evpkg->player.position.y -= PLAYER_PPM;
+		move_actually(evpkg, 'w');
 	if (evpkg->key_list.key_s && !(evpkg->map.map[(evpkg->player.position.y + 1)
 				/ 60][evpkg->player.position.x / 60] == '1'
 		|| evpkg->map.map[(evpkg->player.position.y + 1)
 			/ 60][(evpkg->player.position.x + 59) / 60] == '1'))
-		evpkg->player.position.y += PLAYER_PPM;
+		move_actually(evpkg, 's');
 	player_actions(evpkg);
+	display_moves(evpkg, move_actually(evpkg, 'g'));
 }

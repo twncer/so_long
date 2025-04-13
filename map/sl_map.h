@@ -10,7 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAP_H
-# define MAP_H
+#ifndef SL_MAP_H
+# define SL_MAP_H
+bool	check_is_rect(struct s_map *map);
+bool	check_is_walls_valid(struct s_map *map);
+int flood(char **map, int x, int y);
 bool map_is_valid(char *path, struct s_map *map);
 #endif

@@ -22,5 +22,6 @@ void	init_keys(struct s_key_listener *key_list);
 void	key_pressed(int key, struct s_key_listener *key_list);
 void	key_released(int key, struct s_key_listener *key_list);
 void	move_player(struct s_eventpkg *evpkg);
+void display_moves(struct s_eventpkg *evpkg, unsigned int moves);
 
 #endif

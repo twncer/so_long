@@ -1,5 +1,6 @@
 #include <stdbool.h>
 #include <unistd.h>
+#include <stdlib.h>
 
 bool	in(char *str, char c)
 {
@@ -38,4 +39,19 @@ void	setstr(char **a, char **b, ssize_t start)
 		(*a)[counter + start] = (*b)[counter];
 		counter++;
 	}
+}
+
+char	*expand_buffer(char **buffer, char **expand)
+{
+	char	*temp;
+
+	temp = malloc(len(*buffer) + len(*expand) + 1);
+	if (temp == NULL)
+		return (NULL);
+	setstr(&temp, buffer, 0);
+	setstr(&temp, expand, len(*buffer));
+	temp[len(*buffer) + len(*expand)] = '\0';
+	free(*buffer);
+	(*buffer) = temp;
+	return (*buffer);
 }
